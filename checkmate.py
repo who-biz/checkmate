@@ -32,10 +32,10 @@ def main():
      
     to_json = "--to-json" in sys.argv
 
-    command_template = Template("grpcurl -d '{ \"height\" : $height }' $host cash.z.wallet.sdk.rpc.CompactTxStreamer/GetTreeState")
+    command_template = Template("grpcurl -insecure -d '{ \"height\" : $height }' $host cash.z.wallet.sdk.rpc.CompactTxStreamer/GetTreeState")
 
     if to_json:
-        command_template = Template("grpcurl -d '{ \"height\" : $height }' $host cash.z.wallet.sdk.rpc.CompactTxStreamer/GetTreeState > $height.json")
+        command_template = Template("grpcurl -insecure -d '{ \"height\" : $height }' $host cash.z.wallet.sdk.rpc.CompactTxStreamer/GetTreeState > $height.json")
 
     latest_height_template = Template("grpcurl $host cash.z.wallet.sdk.rpc.CompactTxStreamer/GetLatestBlock")
     output = subprocess.check_output(latest_height_template.substitute(host=lightwalletd_host), shell=True)
